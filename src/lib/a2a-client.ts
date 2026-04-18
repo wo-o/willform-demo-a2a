@@ -123,7 +123,10 @@ export class A2AClient {
     if (response.error) {
       throw new Error(`A2A error [${response.error.code}]: ${response.error.message}`);
     }
-    return response.result!;
+    if (!response.result) {
+      throw new Error("Empty response from A2A endpoint");
+    }
+    return response.result;
   }
 
   async cancelTask(taskId: string): Promise<A2ATask> {
@@ -132,7 +135,10 @@ export class A2AClient {
     if (response.error) {
       throw new Error(`A2A error [${response.error.code}]: ${response.error.message}`);
     }
-    return response.result!;
+    if (!response.result) {
+      throw new Error("Empty response from A2A endpoint");
+    }
+    return response.result;
   }
 
   extractData(task: A2ATask): unknown {
