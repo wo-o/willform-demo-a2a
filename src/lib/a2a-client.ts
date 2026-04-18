@@ -79,23 +79,6 @@ export class A2AClient {
     return response.result;
   }
 
-  extractText(task: A2ATask): string {
-    if (!task.artifacts?.length) return "(응답 없음)";
-    const textPart = task.artifacts[0].parts.find((p) => p.kind === "text");
-    if (!textPart?.text) return "(응답 없음)";
-    try {
-      const parsed = JSON.parse(textPart.text);
-      if (typeof parsed === "string") return parsed;
-      if (parsed.message) return String(parsed.message);
-      if (parsed.data?.reply) return String(parsed.data.reply);
-      if (parsed.data?.message) return String(parsed.data.message);
-      if (parsed.data && typeof parsed.data === "string") return parsed.data;
-      return JSON.stringify(parsed, null, 2);
-    } catch {
-      return textPart.text;
-    }
-  }
-
   async send(operation: string, params: Record<string, unknown> = {}, contextId?: string): Promise<A2ATask> {
     const rpcParams: Record<string, unknown> = {
       message: {
@@ -115,24 +98,6 @@ export class A2AClient {
     }
 
     return response.result;
-  }
-
-  async getTask(taskId: string): Promise<A2ATask> {
-    const response = await this.rpc("tasks/get", { id: taskId });
-
-    if (response.error) {
-      throw new Error(`A2A error [${response.error.code}]: ${response.error.message}`);
-    }
-    return response.result!;
-  }
-
-  async cancelTask(taskId: string): Promise<A2ATask> {
-    const response = await this.rpc("tasks/cancel", { id: taskId });
-
-    if (response.error) {
-      throw new Error(`A2A error [${response.error.code}]: ${response.error.message}`);
-    }
-    return response.result!;
   }
 
   extractData(task: A2ATask): unknown {

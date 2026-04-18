@@ -38,7 +38,15 @@ if (!operation || operation === "--help") {
   process.exit(0);
 }
 
-const params = paramsJson ? JSON.parse(paramsJson) : {};
+let params: Record<string, unknown> = {};
+if (paramsJson) {
+  try {
+    params = JSON.parse(paramsJson);
+  } catch (err) {
+    console.error(`Invalid JSON for params: ${err instanceof Error ? err.message : err}`);
+    process.exit(1);
+  }
+}
 
 try {
   const task = await client.send(operation, params);

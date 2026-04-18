@@ -246,8 +246,8 @@ async function main() {
   explain("• 스케일링, 환경 변수, 진단 등의 관리 작업");
   console.log();
   explain("추가 탐색:");
-  explain("• pnpm demo — 인터랙티브 메뉴 모드");
-  explain("• pnpm a2a <operation> [params] — 단일 명령 실행");
+  explain("• npm run demo — 인터랙티브 메뉴 모드");
+  explain("• npm run a2a <operation> [params] — 단일 명령 실행");
   console.log();
 
   rl.close();
