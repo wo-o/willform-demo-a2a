@@ -106,7 +106,3 @@ export async function fetchOperations(
     return [];
   }
 }
-
-export function availableSkillIds(card: AgentCard): Set<string> {
-  return new Set(card.skills.map((s) => s.id));
-}

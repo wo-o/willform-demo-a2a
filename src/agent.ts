@@ -648,6 +648,11 @@ function createX402LoggingClient(baseUrl: string): { walletAddress: string; clie
 
 // ─── Core ────────────────────────────────────────────────────
 
+if (!process.env.ANTHROPIC_API_KEY) {
+  console.error("ANTHROPIC_API_KEY is required in .env");
+  process.exit(1);
+}
+
 const config = loadConfig();
 const { walletAddress, client: a2aClient } = createX402LoggingClient(config.baseUrl);
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -891,11 +896,6 @@ async function runScenarios(
 // ─── Main ────────────────────────────────────────────────────
 
 async function main() {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    console.error("ANTHROPIC_API_KEY is required in .env");
-    process.exit(1);
-  }
-
   console.clear();
   const inner = W - 2;
 

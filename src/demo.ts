@@ -3,7 +3,7 @@
 
 import * as readline from "readline";
 import chalk from "chalk";
-import { A2AClient, type A2ATask } from "./lib/a2a-client.js";
+import { A2AClient } from "./lib/a2a-client.js";
 import { loadConfig } from "./lib/config.js";
 import { header, subheader, success, error, info, json, taskSummary, divider } from "./lib/display.js";
 
